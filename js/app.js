@@ -1,45 +1,45 @@
 (function ($) {
 
 	//note model
-    var Note = Backbone.Model.extend({
-        defaults:{
-            title: "New Note",
-            content: "",
-            complete: false,
-            date: moment().format("MM/DD/YYYY HH:mm"),
-            tags: "",
-            newNote: true
-        }
-    });
+	var Note = Backbone.Model.extend({
+		defaults:{
+			title: "New Note",
+			content: "",
+			complete: false,
+			date: moment().format("MM/DD/YYYY HH:mm"),
+			tags: "",
+			newNote: true
+		}
+	});
 
 	//note view
-    var NoteView = Backbone.View.extend({
-        tagName: "div",
-        className: "note shrink",
-        render:function () {
+	var NoteView = Backbone.View.extend({
+		tagName: "div",
+		className: "note shrink",
+		render:function () {
 
 			console.log('rendering note ', this);
 
-            this.front = new NoteContentView({
-                model: this.model
-            });
+			this.front = new NoteContentView({
+				model: this.model
+			});
 			this.$el.append(this.front.render().el);
 
 			this.back = new NoteEditView({
-                model: this.model
-            });
+				model: this.model
+			});
 			this.$el.append(this.back.render().el);
 
-            return this;
-        }
-    });
+			return this;
+		}
+	});
 
-    //note view
-    var NoteContentView = Backbone.View.extend({
-        tagName: "div",
-        className: "front",
-        template: $("#noteContentTemplate").html(),
-        events: {
+	//note content view
+	var NoteContentView = Backbone.View.extend({
+		tagName: "div",
+		className: "front",
+		template: $("#noteContentTemplate").html(),
+		events: {
 			'click button.delete': 'remove',
 			'click button.edit': 'showEdit'
 		},
@@ -50,14 +50,14 @@
 					console.log('new content', this.options.model.changed);
 					this.render();
 				}
-            }, this);
+			}, this);
 		},
-        render:function () {
+		render:function () {
 			console.log('rendering front ', this);
-            var tmpl = _.template(this.template);
-            this.$el.html(tmpl(this.model.toJSON())); 
-            return this;
-        },
+			var tmpl = _.template(this.template);
+			this.$el.html(tmpl(this.model.toJSON())); 
+			return this;
+		},
 		remove: function(){
 			if (confirm('Are you sure?')){
 				console.group('deleting note', this);
@@ -76,98 +76,98 @@
 			console.group('editing note', this);
 			this.$el.parent().addClass('flip');
 		}
-    });
+	});
 
-    //note view
-    var NoteEditView = Backbone.View.extend({
-        tagName: "div",
-        className: "back",
-        template: $("#noteEditTemplate").html(),
-        events: {
+	//note edit view
+	var NoteEditView = Backbone.View.extend({
+		tagName: "div",
+		className: "back",
+		template: $("#noteEditTemplate").html(),
+		events: {
 			'click button.save': 'save',
 			'click button.cancel': 'cancel'
 		},
-        render:function () {
+		render:function () {
 			console.log('rendering back ', this);
-            var tmpl = _.template(this.template);
-            this.$el.html(tmpl(this.model.toJSON())); 
-            return this;
-        },
+			var tmpl = _.template(this.template);
+			this.$el.html(tmpl(this.model.toJSON())); 
+			return this;
+		},
 		save: function(){
 			console.log('saving note ', this);
 			var form = $(this.el).find('form');
-            this.model.save({
+			this.model.save({
 				title: form.find('.title').val(),
 				content: form.find('.content').val(),
 				date: moment().format("MM/DD/YYYY HH:mm"),
 				newNote: false
-            });
-            setTimeout($.proxy(function(){
+			});
+			setTimeout($.proxy(function(){
 				this.$el.parent().removeClass('flip');
 				console.log('showing front');
 				console.groupEnd();
-            },this),10);
+			},this),10);
 		},
 		cancel: function() {
 			console.log('canceling', this);
 			this.$el.parent().removeClass('flip');
 			console.groupEnd();
 		}
-    });
+	});
 
-    //notes collection
-    var Notes = Backbone.Collection.extend({
+	//notes collection
+	var Notes = Backbone.Collection.extend({
 		model: Note,
 		localStorage: new Backbone.LocalStorage("notes")
 	});
 
-    //notes view
+	//notes view
 	var NotesView = Backbone.View.extend({
-        el:$("#notes"),
+		el:$("#notes"),
 
 		events: {
 			'click button#add': 'addItem'
 		},
 
-        initialize:function(){
+		initialize:function(){
 			console.group('initialize: ', this);
-            this.collection = new Notes();
-            this.collection.fetch();
-            console.log('New collection from localStorage', this.collection);
+			this.collection = new Notes();
+			this.collection.fetch();
+			console.log('New collection from localStorage', this.collection);
 			console.groupEnd();
 			this.collection.on('remove add', function() {
 				console.log('collection changed', this);
-            }, this);
-            this.render();
-        },
+			}, this);
+			this.render();
+		},
 
-        render: function(){
+		render: function(){
 			var cnt = 1;
 			console.group('render: ', this);
 			_.each(this.collection.models, function(item, idx){
 				console.group('rendering existing note ' + idx, item);
-                this.renderNote(item,cnt);
-                cnt++;
-                console.groupEnd();
-            }, this);
-        },
+				this.renderNote(item,cnt);
+				cnt++;
+				console.groupEnd();
+			}, this);
+		},
 
-        renderNote: function(item, cnt){
-            var noteView = new NoteView({
-                model: item
-            });
+		renderNote: function(item, cnt){
+			var noteView = new NoteView({
+				model: item
+			});
 
-            var noteViewEl = noteView.render().$el;
-            console.log('appending note ', noteViewEl, item);
-            noteViewEl.insertAfter('.seperator');
-            setTimeout(function(){
+			var noteViewEl = noteView.render().$el;
+			console.log('appending note ', noteViewEl, item);
+			noteViewEl.insertAfter('.seperator');
+			setTimeout(function(){
 				$(noteViewEl).removeClass('shrink');
 				if (item.attributes.newNote) {
 					$(noteViewEl).addClass('flip');
 				}
-            },100*cnt);
-        },
-        addItem: function(){
+			},100*cnt);
+		},
+		addItem: function(){
 			console.group('creating new note', this);
 			var note = new Note();
 			this.collection.add(note);
@@ -176,10 +176,10 @@
 			console.log('new note created', note);
 			console.groupEnd();
 		}
-    });
+	});
 
-    console.group('NeverNote');
+	console.group('NeverNote');
 
-    var notesView = new NotesView();
+	var notesView = new NotesView();
 
 })(jQuery);
