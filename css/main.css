@@ -1,0 +1,183 @@
+@import url(http://fonts.googleapis.com/css?family=Basic);
+
+@font-face {
+  font-family: 'icons';
+  src: url('../font/icons.eot?24734110');
+  src: url('../font/icons.eot?24734110#iefix') format('embedded-opentype'),
+       url('../font/icons.woff?24734110') format('woff'),
+       url('../font/icons.ttf?24734110') format('truetype'),
+       url('../font/icons.svg?24734110#icons') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+/* Chrome hack: SVG is rendered more smooth in Windozze. 100% magic, uncomment if you need it. */
+/* Note, that will break hinting! In other OS-es font will be not as sharp as it could be */
+/*
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: 'icons';
+    src: url('../font/icons.svg?62128061#icons') format('svg');
+  }
+}
+*/
+ 
+ [class^="icon-"]:before, [class*=" icon-"]:before {
+  font-family: "icons";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+ 
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+ 
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+     
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+ 
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+ 
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+ 
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+}
+ 
+.icon-edit:before { content: '\e803'; } /* '' */
+.icon-ok:before { content: '\e804'; } /* '' */
+.icon-cancel:before { content: '\e800'; } /* '' */
+.icon-trash:before { content: '\e805'; } /* '' */
+.icon-plus-squared:before { content: '\e801'; } /* '' */
+
+.icon-ok:hover { 
+	color: green;
+}
+
+.icon-cancel:hover { 
+	color: red;
+}
+
+* {
+	box-sizing: border-box;
+	font-family: 'Basic', sans-serif;
+}
+
+body {
+
+	background: #ccc;
+}
+
+.container {
+	width: 800px;
+	padding: 1em;
+	margin: 1em auto;
+	border-radius: .4em;
+}
+
+button {
+	float: right;
+	margin-right: 0;
+	-webkit-appearance: none;
+	-webkit-backface-visibility: hidden;
+	border: 0;
+	background: transparent;
+	-webkit-transition: all .5s;
+}
+
+#add {
+	font-size: 3em;
+}
+
+#add:hover {
+	color: #999;
+}
+
+button:hover {
+	color: #000;
+}
+
+h1 {
+	margin-top: 0;
+	font-size: 1.4em;
+}
+
+.seperator {
+	clear: both;
+}
+
+.note {
+	position: relative;
+	vertical-align: top;
+	font-size: .8em;
+	width: 228px;
+	height: 200px;
+	display: inline-block;
+	margin: 1em;
+	-webkit-transition: all .5s;
+	-webkit-perspective: 600px;
+}
+
+.note .front, .note .back {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 228px;
+	min-height: 200px;
+	padding: 1em;
+	border-radius: .6em;
+	background: #fff;
+	box-shadow: 0 0 1em 0 rgba(0,0,0,.5);
+	-webkit-transition: all .5s;
+	-webkit-transform-style: preserve-3d;
+	-webkit-backface-visibility: hidden;
+}
+
+.note .front {
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(254,252,234,1)), color-stop(100%,rgba(239,236,215,1)));
+	-webkit-transform: rotateX(0deg) rotateY(0deg);
+}
+
+.note .back {
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(47%,rgba(246,246,246,1)), color-stop(100%,rgba(237,237,237,1)));
+	-webkit-transform: rotateY(-180deg);
+}
+
+.note.flip .front {
+	-webkit-transform: rotateY(180deg);
+}
+
+.note.flip .back {
+	-webkit-transform: rotateX(0deg) rotateY(0deg);
+}
+
+.note h2 {
+	margin-top: 0;
+	clear: right;
+}
+
+.note button {
+	background: transparent;
+	border: 0;
+	padding: 0;
+	font-size: 1.8em;
+	box-shadow: none;
+}
+
+.move-left {
+	-webkit-translateX: -200px;
+}
+
+.shrink {
+	-webkit-transform: scale(0);
+	width:0;
+	opacity: 0;
+}
