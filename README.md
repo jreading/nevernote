@@ -1,6 +1,6 @@
 ##NeverNote - the notes we never see...
 
-A sample backbone app that use localstorage and multiple subviews.
+A sample backbone app that uses multiple subviews, localstorage and lifecycle logging.
 
 Works offline, in this age of digital snooping.
 
