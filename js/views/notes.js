@@ -1,7 +1,7 @@
-define(["../collections/notes","models/note","views/note"],function(Notes,Note,NoteView){
+define(["collections/notes","models/note","views/note"],function(Notes, Note, NoteView){
 	//notes view
 	var NotesView = Backbone.View.extend({
-		el:$("#notes"),
+		el: $("#notes"),
 
 		events: {
 			'click button#add': 'addItem'

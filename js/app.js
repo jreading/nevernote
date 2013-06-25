@@ -1,6 +1,11 @@
 define(["views/notes"],function(NotesView){
 
-	console.group('NeverNote');
+	var app = {
+		initialize: function(){
+			console.group('NeverNote');
+			var notesView = new NotesView();
+		}
+	};
 
-	var notesView = new NotesView();
+	return app;
 });

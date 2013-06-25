@@ -1,4 +1,3 @@
-
 define(function(){
 	//note edit view
 	var NoteEditView = Backbone.View.extend({

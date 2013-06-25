@@ -7,20 +7,26 @@ require.config({
         "backbone": "libs/backbone",
         "localstorage": "libs/backbone.localStorage-min",
         "underscore": "libs/underscore"
-    }
+    },
+    shim: {
+      // Backbone
+      "backbone": {
+         // Depends on underscore/lodash and jQuery
+         "deps": ["underscore", "jquery"],
+         // Exports the global window.Backbone object
+         "exports": "Backbone"
+      }
+   }
   });
+
 require([
-	//dependencies
 	"jquery",
-	"json2",
-	"moment",
 	"underscore",
 	"backbone",
+	"json2",
+	"moment",
 	"localstorage",
 	"app"
-	//app files
-
-	], function() {
-    
-    
+	], function($, _, Backbone, json, moment, localstorage, app) {
+		app.initialize();
 });
