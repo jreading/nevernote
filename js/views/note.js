@@ -1,4 +1,9 @@
-define(["views/notecontent","views/noteedit"],function(NoteContentView, NoteEditView){
+define([
+	'underscore',
+	'backbone',
+	'views/notecontent',
+	'views/noteedit'
+	],function(_, Backbone, NoteContentView, NoteEditView){
 	//note view
 	var NoteView = Backbone.View.extend({
 		tagName: "div",

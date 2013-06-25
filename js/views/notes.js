@@ -1,4 +1,10 @@
-define(["collections/notes","models/note","views/note"],function(Notes, Note, NoteView){
+define([
+	'underscore',
+	'backbone',
+	'collections/notes',
+	'models/note',
+	'views/note'
+	],function(_, Backbone, Notes, Note, NoteView){
 	//notes view
 	var NotesView = Backbone.View.extend({
 		el: $("#notes"),

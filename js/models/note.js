@@ -1,4 +1,7 @@
-define(function(){
+define([
+	'underscore',
+	'backbone'
+  ],function(_,Backbone){
 	//note model
 	var Note = Backbone.Model.extend({
 		defaults:{
