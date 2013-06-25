@@ -1,3 +1,4 @@
+
 define(function(){
 	//note edit view
 	var NoteEditView = Backbone.View.extend({
@@ -11,7 +12,7 @@ define(function(){
 		render:function () {
 			console.log('rendering back ', this);
 			var tmpl = _.template(this.template);
-			this.$el.html(tmpl(this.model.toJSON())); 
+			this.$el.html(tmpl(this.model.toJSON()));
 			return this;
 		},
 		save: function(){
@@ -26,13 +27,11 @@ define(function(){
 			setTimeout($.proxy(function(){
 				this.$el.parent().removeClass('flip');
 				console.log('showing front');
-				console.groupEnd();
 			},this),10);
 		},
 		cancel: function() {
 			console.log('canceling', this);
 			this.$el.parent().removeClass('flip');
-			console.groupEnd();
 		}
 	});
 

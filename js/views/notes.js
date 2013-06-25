@@ -28,6 +28,7 @@ define(["../collections/notes","models/note","views/note"],function(Notes,Note,N
 				cnt++;
 				console.groupEnd();
 			}, this);
+			console.groupEnd();
 		},
 
 		renderNote: function(item, cnt){
