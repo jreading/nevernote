@@ -1,7 +1,6 @@
 define([
-	'underscore',
 	'backbone'
-	],function(_, Backbone){
+	],function(Backbone){
 	//note content view
 	var NoteContentView = Backbone.View.extend({
 		tagName: "div",
