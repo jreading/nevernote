@@ -172,10 +172,6 @@ h1 {
 	box-shadow: none;
 }
 
-.move-left {
-	-webkit-translateX: -200px;
-}
-
 .shrink {
 	-webkit-transform: scale(0);
 	width:0;
